@@ -254,6 +254,8 @@ Hệ thống các component - thành phần là một khái niệm quan trọng 
 
 ![Component Tree](/images/components.png)
 
+In Vue, a component is essentially a Vue instance with pre-defined options. Registering a component in Vue is straightforward:
+
 Trong Vue, một component cũng chỉ là một đối tượng Vue với những cài đặt đã được đinh hình trước. Thiết lập một component trong Vue khá đơn giản:
 
 ``` js
@@ -332,6 +334,8 @@ var app7 = new Vue({
 })
 </script>
 {% endraw %}
+
+This is just a contrived example, but we have managed to separate our app into two smaller units, and the child is reasonably well-decoupled from the parent via the props interface. We can now further improve our `<todo-item>` component with more complex template and logic without affecting the parent app.
 
 Đây chỉ là một ví dụ đơn giản, nhưng điểm chính là chúng ta đã có thể phân tách ứng dụng ra thành nhiều phần tử nhỏ hơn, và component con được tách rời ra khỏi component cha một cách hợp lý bằng giao diện 'props'. Bây giờ chúng ta có thể nâng cấp component `<todo-item>` với một template và logic phức tạp hơn nữa mà không hề ảnh hưởng đến component cha.
 
