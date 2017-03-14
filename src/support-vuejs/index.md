@@ -47,6 +47,6 @@ Tuy nhiên, chúng tôi cần sự hỗ trợ về kinh tế để duy trì nh�
 
 Nếu bạn là một doanh nghiệp và đang sử dụng Vue.js để làm một sản phẩm có lợi nhuận, tài trợ cho sự phát triển của Vue cũng là một chiến lược kinh doanh tốt: **Điều này đảm bảo rằng sản phẩm của bạn sẽ luôn tốt và được nâng cấp, bảo trì thường xuyên.**. Hơn nữa, doanh nghiệp của bạn sẽ được cộng đồng Vue chú ý đến và sẽ làm cho bạn dễ tuyển dụng những người phát triển dùng Vue hơn nữa!
 
-Nếu bạn là một doanh nghiệp và đang sử dụng Vue để làm một sản phẩm chính cho doanh nghiệp, tôi cũng có thể trò chuyện với bạn về vấn đề trài trợ / tư vấn. [Liên lạc với tôi qua Twitter](https://twitter.com/youyuxi).
+Nếu bạn là một doanh nghiệp và đang sử dụng Vue để làm một sản phẩm chính cho doanh nghiệp, tôi cũng có thể trò chuyện với bạn về vấn đề tài trợ hoặc tư vấn. [Liên lạc với tôi qua Twitter](https://twitter.com/youyuxi).
 
 Nếu như bạn là một người dùng đơn lẻ và yêu thích các tính năng của Vue, mong bạn hãy nghĩ đến chuyện tài trợ cho chúng tôi như một lời cảm ơn - như là thỉnh thoảng mua cho tôi một ly cafe ấy mà :)
