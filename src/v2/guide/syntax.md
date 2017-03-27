@@ -1,64 +1,64 @@
 ---
-title: Cú pháp biểu mẫu - Template Syntax
+title: Biểu mẫu - Template Syntax
 type: guide
 order: 4
 ---
 
-Vue.js uses an HTML-based template syntax that allows you to declaratively bind the rendered DOM to the underlying Vue instance's data. All Vue.js templates are valid HTML that can be parsed by spec-compliant browsers and HTML parsers.
-
 Vue.js sử dụng các template syntax dựa trên nền tảng căn bản của HTML, cho phép bạn ràng buộc các thuộc tính của đối tượng Vue vào DOM. Tất cả template đều là HTML hợp lệ và có thể được đọc bởi tất cả các browser được hỗ trợ.
 
-Under the hood, Vue compiles the templates into Virtual DOM render functions. Combined with the reactivity system, Vue is able to intelligently figure out the minimal amount of components to re-render and apply the minimal amount of DOM manipulations when the app state changes.
+Ở bên dưới, Vue sẽ chịu trách nhiệm biên dịch template thành các function sinh Virtual DOM. Kết hợp với hệ thống phản ứng, Vue sẽ có khả năng nhận biết được số lượng component tối thiểu để tái sử dụng và điều khiển DOm khi trạng thái của ứng dụng thay đổi.
 
-If you are familiar with Virtual DOM concepts and prefer the raw power of JavaScript, you can also [directly write render functions](render-function.html) instead of templates, with optional JSX support.
+Nếu bạn có quen thuộc với khái niệm Virtual DOM - DOM ảo, và lại thích sử dụng tối đa chức năng của JavaScript, thì bạn cũng có thể [tự viết các hàm render](render-function.html) thay vì viết các biểu mẫu, với hỗ trợ JSX (không bắt buộc).
 
-## Interpolations
+## Interpolations - Các phép nối gán
 
-### Text
+### Text - Văn bản
 
-The most basic form of data binding is text interpolation using the "Mustache" syntax (double curly braces):
+Dạng cơ bản nhất của ràng buộc dữ liệu là nối gán văn bản sử dụng cú pháp "Mustache" quen thuộc (dấu ngoặc nhọn đôi):
 
 ``` html
 <span>Message: {{ msg }}</span>
 ```
 
-The mustache tag will be replaced with the value of the `msg` property on the corresponding data object. It will also be updated whenever the data object's `msg` property changes.
+Dấu "Mustache" trên sẽ được thay thế bằng dữ liệu của thuộc tính `msg` trong đối tượng Vue chủ. Nó cũng sẽ được thay đổi theo mỗi khi `msg` thay đổi.
 
-You can also perform one-time interpolations that do not update on data change by using the [v-once directive](../api/#v-once), but keep in mind this will also affect any binding on the same node:
+Bạn cũng có thể cho nó gán chỉ một lần duy nhất, và khi làm thế, nội dung của dấu "Mustache" sẽ không thay đổi nữa, đó là dùng [v-once](../api/#v-once), nhưng lưu ý rằng khi dùng thế này thì tất cả các ràng buộc trong cùng tag html cũng sẽ ảnh hưởng:
 
 ``` html
 <span v-once>This will never change: {{ msg }}</span>
 ```
 
-### Raw HTML
+### Raw HTML - HTML thuần
 
-The double mustaches interprets the data as plain text, not HTML. In order to output real HTML, you will need to use the `v-html` directive:
+Cú pháp "Mustache" chỉ xuất ra dữ liệu dưới dạng văn bản thuần túy, chứ không phải HTML. Để có thể xuất ra được HTML, bạn cần phải dùng directive `v-html`:
 
 ``` html
 <div v-html="rawHtml"></div>
 ```
-
+Ở ví dụ trên, `rawHhtml` chính là nguồn dữ liệu của thuộc tính
 The contents are inserted as plain HTML - data bindings are ignored. Note that you cannot use `v-html` to compose template partials, because Vue is not a string-based templating engine. Instead, components are preferred as the fundamental unit for UI reuse and composition.
 
-<p class="tip">Dynamically rendering arbitrary HTML on your website can be very dangerous because it can easily lead to [XSS vulnerabilities](https://en.wikipedia.org/wiki/Cross-site_scripting). Only use HTML interpolation on trusted content and **never** on user-provided content.</p>
+Nội dung được truyền tải dưới dạng HTML thuần, tất cả các ràng buộc dữ liệu sẽ bị bỏ qua. Chú ý rằng bạn sẽ không thể sử dụng `v-html` để có thể xuất ra các biểu mẫu template theo component bên trong nó. Thay vào đó, các thành phần component con thường được dùng riêng lẻ nhiều hơn để tăng tính tái sử dụng.
+
+<p class="tip">Diễn dịch các đoạn HTML linh động trên trang web của bạn sẽ làm tăng nguy cơ bị tấn công qua [điểm yếu XSS](https://en.wikipedia.org/wiki/Cross-site_scripting). Chỉ nên dùng thao tác này đối với những nội dung mà bạn tin tưởng và *không bao giờ* áp dụng cho nhưng thông tin người dùng nhập vào</p>
 
 ### Attributes
 
-Mustaches cannot be used inside HTML attributes, instead use a [v-bind directive](../api/#v-bind):
+Cú pháp "Mustache" cũng không thể sử dụng được trong thao tác tạo HTML này, thay vào đó hãy dùng [v-bind directive](../api/#v-bind):
 
 ``` html
 <div v-bind:id="dynamicId"></div>
 ```
 
-It also works for boolean attributes - the attribute will be removed if the condition evaluates to a falsy value:
-
+Directive này cũng có thể dùng cho các thuộc tính tag HTML kiểu boolean - thuộc tính đó sẽ bị loại bỏ nếu như điều kiện ràng buộc là false:
 ``` html
 <button v-bind:disabled="someDynamicCondition">Button</button>
 ```
 
-### Using JavaScript Expressions
+### Sử dụng cách thể hiện của JavaScript
 
-So far we've only been binding to simple property keys in our templates. But Vue.js actually supports the full power of JavaScript expressions inside all data bindings:
+
+Cho tới lúc này chúng ta chỉ mới ràng buộc đơn giản vào trong biểu mẫu của chúng ta. Nhưng Vue.js cũng hỗ trợ đầy đủ các biểu thức của JavaScript trong ràng buộc:
 
 ``` html
 {{ number + 1 }}
@@ -70,71 +70,72 @@ So far we've only been binding to simple property keys in our templates. But Vue
 <div v-bind:id="'list-' + id"></div>
 ```
 
-These expressions will be evaluated as JavaScript in the data scope of the owner Vue instance. One restriction is that each binding can only contain **one single expression**, so the following will **NOT** work:
-
+Các biểu thức này sẽ được tính toán như JavaScript trong tầm dữ liệu của đối tượng Vue. Quy định là mỗi ràng buộc dữ liệu như vậy chỉ có **một biểu thức** thôi, vì vậy, những trường hợp sau đây là sai và sẽ **KHÔNG** hoạt động
 ``` html
-<!-- this is a statement, not an expression: -->
+<!-- đây là khai báo, không phải biểu thức -->
 {{ var a = 1 }}
 
-<!-- flow control won't work either, use ternary expressions -->
+<!-- cấu trúc rẽ nhánh cũng không được, hãy sử dụng biểu thức điều kiện a?b:c-->
 {{ if (ok) { return message } }}
 ```
 
-<p class="tip">Template expressions are sandboxed and only have access to a whitelist of globals such as `Math` and `Date`. You should not attempt to access user defined globals in template expressions.</p>
+<p class="tip">Các biểu thức trong biểu mẫu đã được gói gọn và chỉ có thể truy nhập vào những thành phần toàn cục đã có trong whitelist như `Math` và `Date`. Bạn không nên thử truy cập vào những globals do người dùng tạo ra ở khai báo biểu mẫu.</p>
 
-## Directives
+## Directives - Chỉ thị
 
-Directives are special attributes with the `v-` prefix. Directive attribute values are expected to be **a single JavaScript expression** (with the exception for `v-for`, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes. Let's review the example we saw in the introduction:
+
+Các chỉ thị - directive là những thuộc tính HTML đặc biệt với mở đầu là `v-`. Các thuộc tính directive này nhận **một biểu thức JavaScript** (trường hợp ngoại lệ là `v-for`, sẽ được nói đến sau). Công việc của một directive là áp dụng các hiệu ứng phụ vào DOM một cách linh hoạt khi giá trị của biểu thức gán cho nó thay đổi. Hãy xem lại các ví dụ sau đây:
 
 ``` html
 <p v-if="seen">Now you see me</p>
 ```
 
-Here, the `v-if` directive would remove/insert the `<p>` element based on the truthiness of the value of the expression `seen`.
+Ở đây , directive `v-if` sẽ có nhiệm vụ thêm/bỏ tag `<p>` dựa vào biến logic `seen`.
 
-### Arguments
+### Arguments - Đối số
 
-Some directives can take an "argument", denoted by a colon after the directive name. For example, the `v-bind` directive is used to reactively update an HTML attribute:
+Có một số directive có thể nhận các "argument", được biểu thị bởi một dấu 2 chấm sau tên của directive. Ví dụ `v-bind` được dùng để thay đổi một thuộc tính tag HTML linh động:
+
 
 ``` html
 <a v-bind:href="url"></a>
 ```
 
-Here `href` is the argument, which tells the `v-bind` directive to bind the element's `href` attribute to the value of the expression `url`.
+Ở đây `href` là đối số, và `v-bind` có nhiệm vụ thay đổi thuộc tính `href` này theo giá trị của biểu thức `url`, hoặc giá trị của thuộc tính Vue `url`.
 
-Another example is the `v-on` directive, which listens to DOM events:
+Một ví dụ khác là directive `v-on`, đặt một listener vào các sự kiện DOM:
 
 ``` html
 <a v-on:click="doSomething">
 ```
 
-Here the argument is the event name to listen to. We will talk about event handling in more detail too.
+Ở đây đối số sẽ là sự kiện cần được lắng nghe. Chúng ta sẽ nói về nắm bắt sự kiện chi tiết hơn về sau.
 
-### Modifiers
+### Modifiers - Hiệu chỉnh
 
-Modifiers are special postfixes denoted by a dot, which indicate that a directive should be bound in some special way. For example, the `.prevent` modifier tells the `v-on` directive to call `event.preventDefault()` on the triggered event:
+Các Modifiers - Các hiệu chỉnh là các từ hậu tố, đặt sau một dấu chấm, bảo rằng directive đó sẽ được ràng buộc vào DOM một cách đặc biệt. Ví dụ, hiệu chỉnh `.prevent` sẽ bảo directive `v-on` chạy `event.preventDefault()` khi event của DOM được kích hoạt:
 
 ``` html
 <form v-on:submit.prevent="onSubmit"></form>
 ```
 
-We will see more use of modifiers later when we take a more thorough look at `v-on` and `v-model`.
+Chúng ta sẽ được biết về các Modifiers này nhiều hơn khi chúng ta xem về `v-on` và `v-model`.
 
-## Filters
+## Filters - Bộ lọc
 
-Vue.js allows you to define filters that can be used to apply common text formatting. Filters are usable in two places: **mustache interpolations and `v-bind` expressions**. Filters should be appended to the end of the JavaScript expression, denoted by the "pipe" symbol:
+Vue.js cho phép bạn định nghĩa các `filters` - bộ lọc có thể được áp dũng cho các định dạng văn bản thường gặp. Filter có thể dùng được ở 2 chỗ: **cú pháp "Mustache" và biểu thức của directive `v-bind`**. Các filter phải được áp vào cuối các biểu thức JavaScript, sau một dấu xổ dọc:
 
 ``` html
-<!-- in mustaches -->
+<!-- mustaches -->
 {{ message | capitalize }}
 
-<!-- in v-bind -->
+<!-- v-bind -->
 <div v-bind:id="rawId | formatId"></div>
 ```
 
-<p class="tip">Vue 2.x filters can only be used inside mustache interpolations and `v-bind` expressions (the latter supported since 2.1.0), because filters are primarily designed for text transformation purposes. For more complex data transforms in other directives, you should use [Computed properties](computed.html) instead.</p>
+<p class="tip">Các filter trong Vue 2.x chỉ có thể được dùng trong 2 trường hợp : cú pháp "Mustache" và `v-bind` (`v-bind` được hỗ trợ sau 2.1.0), vì filters được tạo ra chủ yếu là cho việc biến đổi văn bản. Để có được các biến đổi và lọc phức tạp hơn, bạn nên sử dụng [Các thuộc tính Computed](computed.html)</p>
 
-The filter function always receives the expression's value as the first argument.
+Một hàm filter luôn luôn nhận giá trị của biểu thức là tham chiếu đầu tiên.
 
 ``` js
 new Vue({
@@ -149,43 +150,46 @@ new Vue({
 })
 ```
 
-Filters can be chained:
+Có thể có nhiều filter liên tục nhau:
 
 ``` html
 {{ message | filterA | filterB }}
 ```
 
 Filters are JavaScript functions, therefore they can take arguments:
+Filter cũng là hàm của JavaScript, vì vậy chúng cũng có thể có thêm tham chiếu
 
 ``` html
 {{ message | filterA('arg1', arg2) }}
 ```
 
-Here, the plain string `'arg1'` will be passed into the filter as the second argument, and the value of expression `arg2` will be evaluated and passed in as the third argument.
+Ở đây, thì chuỗi 'arg1' sẽ là tham chiếu thứ hai, và arg2 sẽ là tham chiếu thứ 3
 
-## Shorthands
+## Shorthands - Viết tắt
 
 The `v-` prefix serves as a visual cue for identifying Vue-specific attributes in your templates. This is useful when you are using Vue.js to apply dynamic behavior to some existing markup, but can feel verbose for some frequently used directives. At the same time, the need for the `v-` prefix becomes less important when you are building an [SPA](https://en.wikipedia.org/wiki/Single-page_application) where Vue.js manages every template. Therefore, Vue.js provides special shorthands for two of the most often used directives, `v-bind` and `v-on`:
 
-### `v-bind` Shorthand
+Tiền tố `v-` cho phép nhận biết đâu là thuộc tính HTML do Vue.js sinh ra trong biểu mẫu của bạn. Điều này rất hữu dụng khi bạn dùng Vue để điều khiển các trạng thái của DOM bằng các tag HTML sẵn có, nhưng  đôi lúc, có một số directives lại bị sử dụng quá nhiều khiến cho việc đọc và tu sửa trở nên khó khăn. Hơn nữa, độ cần thiết của tiền tố `v-` sẽ trở nên giảm dần đi khi mà bạn đang xây dựng một [ứng dụng 1 trang](https://en.wikipedia.org/wiki/Single-page_application) với Vue.js là nền tảng quản lý tất cả. Vì vậy, Vue.js sẽ cho phép bạn viết tắt 2 directive thường dùng nhất là `v-bind` và `v-on`
+
+### Viết tắt của `v-bind`
 
 ``` html
-<!-- full syntax -->
+<!-- đầy đủ -->
 <a v-bind:href="url"></a>
 
-<!-- shorthand -->
+<!-- viết tắt -->
 <a :href="url"></a>
 ```
 
 
-### `v-on` Shorthand
+### Viết tắt của `v-on`
 
 ``` html
-<!-- full syntax -->
+<!-- đầy đủ -->
 <a v-on:click="doSomething"></a>
 
-<!-- shorthand -->
+<!-- viết tắt -->
 <a @click="doSomething"></a>
 ```
 
-They may look a bit different from normal HTML, but `:` and `@` are valid chars for attribute names and all Vue.js supported browsers can parse it correctly. In addition, they do not appear in the final rendered markup. The shorthand syntax is totally optional, but you will likely appreciate it when you learn more about its usage later.
+Chúng có thể nhìn hơi khác với HTML thường dùng, nhưng `:` và `@` là những ký tự hợp lệ cho thuộc tính HTML và bất kỳ trình duyệt nào được Vue.js hỗ trợ cũng có thể đọc được nó. Thêm vào đó, chúng cũng sẽ không xuất hiện khi trình duyệt đã sinh ra DOM. Bãn không nhất thiết phải dùng kiểu viết tắt này, nhưng bạn sẽ thấy chúng hữu dụng khi bạn dùng nhiều.
