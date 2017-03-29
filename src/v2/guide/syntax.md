@@ -25,7 +25,7 @@ Dấu "Mustache" trên sẽ được thay thế bằng dữ liệu của thuộc
 Bạn cũng có thể cho nó gán chỉ một lần duy nhất, và khi làm thế, nội dung của dấu "Mustache" sẽ không thay đổi nữa, đó là dùng [v-once](../api/#v-once), nhưng lưu ý rằng khi dùng thế này thì tất cả các ràng buộc trong cùng tag html cũng sẽ ảnh hưởng:
 
 ``` html
-<span v-once>This will never change: {{ msg }}</span>
+<span v-once>Giá trị này sẽ không bao giờ đổi: {{ msg }}</span>
 ```
 
 ### Raw HTML - HTML thuần
@@ -36,7 +36,6 @@ Cú pháp "Mustache" chỉ xuất ra dữ liệu dưới dạng văn bản thu�
 <div v-html="rawHtml"></div>
 ```
 Ở ví dụ trên, `rawHhtml` chính là nguồn dữ liệu của thuộc tính
-The contents are inserted as plain HTML - data bindings are ignored. Note that you cannot use `v-html` to compose template partials, because Vue is not a string-based templating engine. Instead, components are preferred as the fundamental unit for UI reuse and composition.
 
 Nội dung được truyền tải dưới dạng HTML thuần, tất cả các ràng buộc dữ liệu sẽ bị bỏ qua. Chú ý rằng bạn sẽ không thể sử dụng `v-html` để có thể xuất ra các biểu mẫu template theo component bên trong nó. Thay vào đó, các thành phần component con thường được dùng riêng lẻ nhiều hơn để tăng tính tái sử dụng.
 
@@ -92,16 +91,16 @@ Các chỉ thị - directive là những thuộc tính HTML đặc biệt với 
 
 Ở đây , directive `v-if` sẽ có nhiệm vụ thêm/bỏ tag `<p>` dựa vào biến logic `seen`.
 
-### Arguments - Đối số
+### Arguments
 
-Có một số directive có thể nhận các "argument", được biểu thị bởi một dấu 2 chấm sau tên của directive. Ví dụ `v-bind` được dùng để thay đổi một thuộc tính tag HTML linh động:
+Có một số directive có thể nhận các "argument" - đối tính, được biểu thị bởi một dấu 2 chấm sau tên của directive. Ví dụ `v-bind` được dùng để thay đổi một thuộc tính tag HTML linh động:
 
 
 ``` html
 <a v-bind:href="url"></a>
 ```
 
-Ở đây `href` là đối số, và `v-bind` có nhiệm vụ thay đổi thuộc tính `href` này theo giá trị của biểu thức `url`, hoặc giá trị của thuộc tính Vue `url`.
+Ở đây `href` là đối tính, và `v-bind` có nhiệm vụ thay đổi thuộc tính `href` này theo giá trị của biểu thức `url`, hoặc giá trị của thuộc tính Vue `url`.
 
 Một ví dụ khác là directive `v-on`, đặt một listener vào các sự kiện DOM:
 
@@ -109,7 +108,7 @@ Một ví dụ khác là directive `v-on`, đặt một listener vào các sự 
 <a v-on:click="doSomething">
 ```
 
-Ở đây đối số sẽ là sự kiện cần được lắng nghe. Chúng ta sẽ nói về nắm bắt sự kiện chi tiết hơn về sau.
+Ở đây đối tính sẽ là sự kiện cần được lắng nghe. Chúng ta sẽ nói về nắm bắt sự kiện chi tiết hơn về sau.
 
 ### Modifiers - Hiệu chỉnh
 
@@ -165,7 +164,7 @@ Filter cũng là hàm của JavaScript, vì vậy chúng cũng có thể có th�
 
 Ở đây, thì chuỗi 'arg1' sẽ là tham chiếu thứ hai, và arg2 sẽ là tham chiếu thứ 3
 
-## Shorthands - Viết tắt
+## Viết tắt
 
 The `v-` prefix serves as a visual cue for identifying Vue-specific attributes in your templates. This is useful when you are using Vue.js to apply dynamic behavior to some existing markup, but can feel verbose for some frequently used directives. At the same time, the need for the `v-` prefix becomes less important when you are building an [SPA](https://en.wikipedia.org/wiki/Single-page_application) where Vue.js manages every template. Therefore, Vue.js provides special shorthands for two of the most often used directives, `v-bind` and `v-on`:
 
