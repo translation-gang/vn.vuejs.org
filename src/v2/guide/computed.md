@@ -18,7 +18,7 @@ Như thế này thì biểu mẫu không còn đơn giản và súc tích nữa.
 
 Đó là lý do mà bạn nên sử dụng **thuộc tính computed - hậu kỳ** cho những trường hợp như thế.
 
-### Basic Example
+### Ví dụ đơn giản
 
 ``` html
 <div id="example">
