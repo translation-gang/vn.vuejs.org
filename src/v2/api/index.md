@@ -97,7 +97,7 @@ type: api
   ]
   ```
 
-  Make Vue ignore custom elements defined outside of Vue (e.g., using the Web Components APIs). Otherwise, it will throw a warning about an `Unknown custom element`, assuming that you forgot to register a global component or misspelled a component name.
+  Làm Vue bỏ qua các element tùy chỉnh đã định nghĩa bên ngoài Vue (Ví dụ: khi dùng Web Components APIs). Nếu không thì, nó sẽ ném ra một cảnh bảo `Unknown custom element`, Giả sử rằng bạn đã quên đăng ký một global component hoặc sai chính tả tên của một component.
 
 ### keyCodes
 
@@ -128,7 +128,7 @@ type: api
 
 - **Cách dùng**:
 
-  Đặt giá trị này là `true` để kích hoạt component init, compile, render and patch để theo dõi hiệu năng trong browser devtool timeline. Chỉ làm việc khi phát triển và với những trình duyệt có hỗ trợ [performance.mark](https://developer.mozilla.org/en-US/docs/Web/API/Performance/mark) API.
+  Đặt giá trị này là `true` để kích hoạt component init, compile, render và patch để theo dõi hiệu năng trong browser devtool timeline. Chỉ làm việc ở develoment và với những trình duyệt có hỗ trợ [performance.mark](https://developer.mozilla.org/en-US/docs/Web/API/Performance/mark) API.
 
 ### productionTip
 
@@ -140,7 +140,7 @@ type: api
 
 - **Cách dùng**:
 
-  Đặt giá trị `false` để dừng việc the production tip khi Vue bắt đầu chạy.
+  Đặt giá trị `false` để dừng các production tip khi Vue khởi động.
 
 ## API chung
 
@@ -151,9 +151,9 @@ type: api
 
 - **Cách dùng:**
 
-  Tạo một "subclass" trong cấu trúc nền của Vue. Những tham số nên là một đối tượng chưa các tuỳ chọn của component.
+  Tạo một "subclass" trong cấu trúc nền của Vue. Những tham số nên là một đối tượng chứa các tuỳ chọn của component.
 
-  Trường hợp đặc biệt cần lưu ý ở đây là tuỳ chọn `data` - Nó phải là một hàm (function) when được dùng với `Vue.extend()`.
+  Trường hợp đặc biệt cần lưu ý ở đây là tuỳ chọn `data` - Nó phải là một hàm (function) khi dùng trong `Vue.extend()`.
 
   ``` html
   <div id="mount-point"></div>
@@ -171,7 +171,7 @@ type: api
       }
     }
   })
-  // Tạo một hàm khởi tạo cho Profile và gắn nó trên thành phần (element)
+  // Tạo một hàm khởi tạo cho Profile và gắn đến một element
   new Profile().$mount('#mount-point')
   ```
 
@@ -202,7 +202,7 @@ type: api
   })
   ```
 
-  > New in 2.1.0: returns a Promise if no callback is provided and Promise is supported in the execution environment.
+  > Mới ở phiên bản 2.1.0: trả về một Promise nếu không cung cấp callback và Promise được hỗ trợ trong môi trường chạy.
 
 - **Xem thêm:** [Async Update Queue](../guide/reactivity.html#Async-Update-Queue)
 
@@ -217,7 +217,7 @@ type: api
 
 - **Cách dùng:**
 
-  Đặt thuộc tính cho một đối tượng. Nếu đối tượng động, chắc chắn thuộc tính được tạo cũng động và kích hoạt chế độ xem các cập nhập. Cái này chủ yếu được sử dụng để nhận xung quanh các giới hạn cái mà Vue không thể phát hiện các thuộc tính thêm.
+  Đặt thuộc tính cho một đối tượng. Nếu đối tượng biến thiên, phải chắc chắn thuộc tính được tạo cũng biến thiên và kích hoạt chế độ xem các cập nhập. Cái này chủ yếu được sử dụng để lấy các giới hạn xung quanh khi mà Vue không thể nhận thấy các thuộc tính thêm.
 
   **Lưu ý đối tượng không thể là một Vue instance, hoặc một đối tượng dữ liệu gốc của Vue instance**
 
@@ -231,9 +231,9 @@ type: api
 
 - **Cách dùng:**
 
-  Xoá một thuộc tính của đối tượng. Nếu là đối tượng động, phải chắc chắn việc xoá phải kích hoạt chế độ xem các cập nhập. Cái này chủ yếu được sử dụng để nhận xung quanh các giới hạn cái mà Vue không thể phát hiện thuộc tính được xoá, nhưng bạn nên hạn chế sử dụng nó.
+  Xoá một thuộc tính của đối tượng. Nếu đối tượng biến thiên, phải chắc chắn việc xoá phải kích hoạt chế độ xem các cập nhập. Cái này chủ yếu được sử dụng để lấy các giới hạn xung quanh khi mà Vue không thể nhận thấy các thuộc tính đã xóa, nhưng bạn nên hạn chế sử dụng nó.
 
-  > Ngoài ra nó cũng hoạt động với Array + index trong phiên bản 2.2.0+.
+  > Ngoài ra nó cũng làm việc với Array + index trong phiên bản 2.2.0+.
 
   <p class="tip">Đối tượng đích không thể là một Vue instance, hoặc một đối tượng dữ liệu gốc của Vue instance.</p>
 
@@ -247,7 +247,7 @@ type: api
 
 - **Cách dùng:**
 
-  Đăng ký hoặc gán một directive chung.
+  Đăng ký hoặc gán một global directive.
 
   ``` js
   // Đăng ký
@@ -278,7 +278,7 @@ type: api
 
 - **Cách dùng:**
 
-  Đăng ký hoặc gán một filter chung.
+  Đăng ký hoặc gán một global filter.
 
   ``` js
   // đăng ký
@@ -298,7 +298,7 @@ type: api
 
 - **Cách dùng:**
 
-  Đăng ký hoặc gán một component chung. Việc đăng kí cũng tự động đặt `name` cho component với một `id`.
+  Đăng ký hoặc gán một global component. Việc đăng kí cũng tự động đặt `name` cho component với một `id`.
 
   ``` js
   // đăng ký một cấu trúc mở rộng
@@ -333,7 +333,7 @@ type: api
 
 - **Cách dùng:**
 
-  Apply a mixin globally, which affects every Vue instance created afterwards. This can be used by plugin authors to inject custom behavior into components. **Not recommended in application code**.
+  Ứng dụng một mixin globally, cái mà ảnh hưởng đến Vue instance được tạo sau đó. Nó có thể được sử dụng bởi tác giả của plugins để đưa ra các hành vi tùy chỉnh bên trong các component. **Không khuyến khích trong application code**.
 
 - **Xem thêm:** [Global Mixins](../guide/mixins.html#Global-Mixin)
 
@@ -344,7 +344,7 @@ type: api
 
 - **Cách dùng:**
 
-  Compiles a template string into a render function. **Only available in the standalone build.**
+  Biên dịch một template string bên trong một hàm render. **Chỉ cho phép xây dựng độc lập (standalone build).**
 
   ``` js
   var res = Vue.compile('<div><span>{{ msg }}</span></div>')
@@ -362,7 +362,7 @@ type: api
 
 <h3 id="Vue-version">Vue.version</h3>
 
-- **Details**: Cung cấp phiên bản của Vue đã cài đặt. Cái này đặc biệt hữu dụng cho cộng đồng plugins và components, nơi mà bạn có thể sử dụng các chiến lược khác nhau cho các phiên bản khác nhau.
+- **Chi tiết**: Cung cấp phiên bản của Vue đã cài đặt. Cái này đặc biệt hữu dụng cho cộng đồng plugins và components, nơi mà bạn có thể sử dụng các chiến lược khác nhau cho các phiên bản khác nhau.
 
 - **Cách dùng**:
 
