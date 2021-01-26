@@ -1,40 +1,38 @@
 ---
-title: The Vue Instance
+title: Đối tượng Vue
 type: guide
 order: 3
 ---
 
 ## Constructor
 
-Every Vue vm is bootstrapped by creating a **root Vue instance** with the `Vue` constructor function:
-
+Mọi Vue vm đều được tải và khởi tạo bằng cách tạo ra **một đối tượng Vue gốc** với hàm constructor:
 ``` js
 var vm = new Vue({
   // options
 })
 ```
 
-Although not strictly associated with the [MVVM pattern](https://en.wikipedia.org/wiki/Model_View_ViewModel), Vue's design was partly inspired by it. As a convention, we often use the variable `vm` (short for ViewModel) to refer to our Vue instances.
+Mặc dù không hoàn toàn theo mô hình framework [MVVM](https://en.wikipedia.org/wiki/Model_View_ViewModel), Một phần thiết kế của Vue được lấy cảm hứng từ mô hình này, vì thế mà chúng tôi hay sử dụng từ `vm` (viết tắt của View Model) để gán cho các đối tượng Vue được khai báo.
 
-When you instantiate a Vue instance, you need to pass in an **options object** which can contain options for data, template, element to mount on, methods, lifecycle callbacks and more. The full list of options can be found in the [API reference](../api).
+Khi bạn khởi tạo một đối tượng Vue, bạn cần gán cho nó  **options object - đối tượng cài đặt** ,trong đó có chứa những cài đặt về `data` - dữ liệu, element - phần tử HTML mà đối tượng Vue được cài đặt vào, `methods` - các phương thức của đối tượng Vue này, chu kỳ sống của đối tượng Vue, v.v. . Bạn có thể đọc danh sách đầy đủ các tùy chỉnh tại [tài liệu API](../api).
 
-The `Vue` constructor can be extended to create reusable **component constructors** with pre-defined options:
-
+Constructor `Vue` cũng có thể được mở rộng - `extend` - để tạo ra các component con với cài đặt sẵn có thể tái sử dụng:
 ``` js
 var MyComponent = Vue.extend({
-  // extension options
+  // cài đặt tùy chỉnh phần mở rộng
 })
 
-// all instances of `MyComponent` are created with
-// the pre-defined extension options
+// tất cả đối tượng thuộc lớp `MyComponent` được tạo bởi
+// các cài đặt tùy chỉnh trên
 var myComponentInstance = new MyComponent()
 ```
 
-Although it is possible to create extended instances imperatively, most of the time it is recommended to compose them declaratively in templates as custom elements. We will talk about [the component system](components.html) in detail later. For now, you just need to know that all Vue components are essentially extended Vue instances.
+Mặc dù có tạo ra một đối tượng mở rộng của Vue một cách đơn lẻ vô điều kiện, nhưng hầu hết trường hợp chúng ta nên ràng buộc chúng với nhưng elements tự tạo và với templates. Chúng ta sẽ nói chi tiết về [hệ thống component](components.html) sau. Bây giờ, bạn chỉ cần biết rằng tất các các component của Vue về mặt căn bản đều được mở rộng từ đối tượng Vue.
 
-## Properties and Methods
+## Thuộc tính và Phương Thức
 
-Each Vue instance **proxies** all the properties found in its `data` object:
+Mỗi đối tượng Vue đều **đại diện** cho tất cả các thuộc tính được tìm thấy trong đối tượng con `data` của nó:
 
 ``` js
 var data = { a: 1 }
@@ -44,18 +42,18 @@ var vm = new Vue({
 
 vm.a === data.a // -> true
 
-// setting the property also affects original data
+// biến đổi thuộc tính sẽ ảnh hưởng tới dữ liệu gốc
 vm.a = 2
 data.a // -> 2
 
-// ... and vice-versa
+// ... và ngược lại
 data.a = 3
 vm.a // -> 3
 ```
 
-It should be noted that only these proxied properties are **reactive**. If you attach a new property to the instance after it has been created, it will not trigger any view updates. We will discuss the reactivity system in detail later.
+Cần lưu ý là chỉ có những thuộc tính đại diện này mới có phản ứng tới view. Nếu như bạn cài đặt một thuộc tính mới SAU KHI đối tượng đã được khởi tạo, nó sẽ không gây ra bất kỳ một sự cập nhật nào ở View. Chúng ta sẽ nói chi tiết về những phản ứng này sau.
 
-In addition to data properties, Vue instances expose a number of useful instance properties and methods. These properties and methods are prefixed with `$` to differentiate them from proxied data properties. For example:
+Ngoài thuộc tính `data`, đối tượng Vue cũng có thêm các cài đặt hữu dụng khác về thuộc tính và phương thức. Những thuộc tính và phương thức này được mở đầu với `$` để phân biệt chúng với các dữ liệu 'đại diện' trên. Ví dụ:
 
 ``` js
 var data = { a: 1 }
@@ -67,19 +65,22 @@ var vm = new Vue({
 vm.$data === data // -> true
 vm.$el === document.getElementById('example') // -> true
 
-// $watch is an instance method
+// $watch là một phương thức callback
 vm.$watch('a', function (newVal, oldVal) {
-  // this callback will be called when `vm.a` changes
+  // phương thức này sẽ được gọi khi 'a' thay đổi
 })
 ```
 
 <p class="tip">Don't use [arrow functions](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) on an instance property or callback (e.g. `vm.$watch('a', newVal => this.myMethod())`). As arrow functions are bound to the parent context, `this` will not be the Vue instance as you'd expect and `this.myMethod` will be undefined.</p>
 
-Consult the [API reference](../api) for the full list of instance properties and methods.
+<p class="tip">Đừng sử dụng [arrow functions](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) trong các phương thức đặt biệt hay callback (e.g. `vm.$watch('a', newVal => this.myMethod())`). Vì arrow functions đã bị ràng buộc với đối tượng gốc, từ khóa `this` sẽ không mang giá trị đối tượng Vue hiện tại này như bạn mong muốn và `this.myMethod` sẽ bị lỗi undefined.</p>
 
-## Instance Lifecycle Hooks
+Hãy đọc thêm về [API reference](../api) để có được danh sách đầy đủ các đối tượng, phương thức và thuộc tính.
 
-Each Vue instance goes through a series of initialization steps when it is created - for example, it needs to set up data observation, compile the template, mount the instance to the DOM, and update the DOM when data changes. Along the way, it will also invoke some **lifecycle hooks**, which give us the opportunity to execute custom logic. For example, the [`created`](../api/#created) hook is called after the instance is created:
+## Các móc nối với chu kỳ sống của đối tượng
+
+
+Mỗi đối tượng Vue đều đi qua một quá trình chuẩn bị khi nó vừa được khởi tạo - lấy ví dụ, đối tượng này cần cài đặt lắng nghe biến đổi dữ liệu, điền lại biểu mẫu, đè biểu mẫu đó lại vào DOM, và vập nhật lại DOM khi dữ liệu có thay đổi. Trong những giai đoạn đó, nó cũng sẽ cho ra những **móc nối đến chu kỳ sống**, và đây là những lúc mà chúng ta có thể đưa các thuật toán và xử lý vào. Chẳng hạn như [`created`](../api/#created) sẽ được gọi sau khi đối tượng được khởi tạo:
 
 ``` js
 var vm = new Vue({
@@ -87,17 +88,16 @@ var vm = new Vue({
     a: 1
   },
   created: function () {
-    // `this` points to the vm instance
+    // `this` là đối tượng Vue, hay biến vm lúc này
     console.log('a is: ' + this.a)
   }
 })
 // -> "a is: 1"
 ```
 
-There are also other hooks which will be called at different stages of the instance's lifecycle, for example [`mounted`](../api/#mounted), [`updated`](../api/#updated), and [`destroyed`](../api/#destroyed). All lifecycle hooks are called with their `this` context pointing to the Vue instance invoking it. You may have been wondering where the concept of "controllers" lives in the Vue world and the answer is: there are no controllers. Your custom logic for a component would be split among these lifecycle hooks.
+Cũng có một số móc nối khác được gọi ở các "chặn" khác nhau của chu kỳ sống của đối tượng, ví dụ [`mounted`](../api/#mounted), [`updated`](../api/#updated), và [`destroyed`](../api/#destroyed). Tất cả các móc nối này đều được gọi gọi với từ khóa `this` luôn chỉ vào đối tượng Vue của chúng. Bạn có thể đang tự hỏi rằng, liệu khái niệm "controllers" có tồn tại trong Vue hay không và câu trả lời là : không. Thuật toán và các phương thức của bạn sẽ được chia ra và hoạt động bằng các móc nối này.
 
-## Lifecycle Diagram
+## Biểu đồ chu kỳ sống
 
-Below is a diagram for the instance lifecycle. You don't need to fully understand everything going on right now, but this diagram will be helpful in the future.
-
+Dưới đây là biểu đồ về các chặn trong chu kỳ sống của Vue, bạn chưa cần hiểu hết nhưng biểu đồ này sẽ rất hữu dụng trong tương lai.
 ![Lifecycle](/images/lifecycle.png)

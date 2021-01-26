@@ -1,16 +1,16 @@
-# Support Vue.js Development
+# Hỗ trợ phát triển Vue.js
 
 <a href="https://www.patreon.com/evanyou" target="_blank">
   <img style="width:120px" src="https://s3.amazonaws.com/patreon_public_assets/toolbox/patreon.png">
-  <span>Support Vue.js on Patreon (recurring pledge)</span>
+  <span>Hỗ trợ Vue.js qua Patreon (Hỗ trợ định kỳ)</span>
 </a>
 
 <a href="https://www.paypal.me/evanyou" target="_blank">
   <img style="width:120px" src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png">
-  <span>Donate via PayPal (one time)</span>
+  <span>Tặng qua PayPal (Một lần)</span>
 </a>
 
-## Current premium sponsors:
+## Các nhà tài trợ hiện tại:
 
 <p style="text-align: center; padding-top: 30px; margin-bottom: 0"><a href="http://www.thedifferenceengine.io/"><img src="/images/tde.png" style="width: 300px"></a></p>
 
@@ -42,11 +42,11 @@
   </a>
 </p>
 
-Vue.js is an MIT licensed open source project and completely free to use.
-However, the amount of effort needed to maintain and develop new features for the project is not sustainable without proper financial backing. You can support Vue.js development by [pledging on Patreon](https://www.patreon.com/evanyou) or [donating on PayPal](https://www.paypal.me/evanyou).
+Vue.js là một dự án mã nguồn mở với giấy phép MIT và hoàn toàn miễn phí để sử dụng.
+Tuy nhiên, chúng tôi cần sự hỗ trợ về kinh tế để duy trì những đóng góp và nỗ lực để phát triển thêm những tính năng mới cho Vue. Bạn có thể hỗ trợ để phát triển Vue.js với hai hình thức [thông qua Patreon](https://www.patreon.com/evanyou) hoặc [tặng qua PayPal](https://www.paypal.me/evanyou).
 
-If you run a business and are using Vue in a revenue-generating product, it makes business sense to sponsor Vue development: **it ensures the project that your product relies on stays healthy and actively maintained.** It can also help your exposure in the Vue community and makes it easier to attract Vue developers.
+Nếu bạn là một doanh nghiệp và đang sử dụng Vue.js để làm một sản phẩm có lợi nhuận, tài trợ cho sự phát triển của Vue cũng là một chiến lược kinh doanh tốt: **Điều này đảm bảo rằng sản phẩm của bạn sẽ luôn tốt và được nâng cấp, bảo trì thường xuyên.**. Hơn nữa, doanh nghiệp của bạn sẽ được cộng đồng Vue chú ý đến và sẽ làm cho bạn dễ tuyển dụng những người phát triển dùng Vue hơn nữa!
 
-If you are a business that is building core products using Vue.js, I am also open to conversations regarding custom sponsorship / consulting arrangements. [Get in touch on Twitter](https://twitter.com/youyuxi).
+Nếu bạn là một doanh nghiệp và đang sử dụng Vue để làm một sản phẩm chính cho doanh nghiệp, tôi cũng có thể trò chuyện với bạn về vấn đề tài trợ hoặc tư vấn. [Liên lạc với tôi qua Twitter](https://twitter.com/youyuxi).
 
-If you are an individual user and have enjoyed the productivity of using Vue, consider donating as a sign of appreciation - like buying me coffee once in a while :)
+Nếu như bạn là một người dùng đơn lẻ và yêu thích các tính năng của Vue, mong bạn hãy nghĩ đến chuyện tài trợ cho chúng tôi như một lời cảm ơn - như là thỉnh thoảng mua cho tôi một ly cafe ấy mà :)
